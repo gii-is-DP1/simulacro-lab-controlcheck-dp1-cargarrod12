@@ -31,21 +31,7 @@ public class ProductController {
     }
 
 
-    @PostMapping(value = "/product/create")
-    public String createProduct(@Valid Product p, BindingResult result, ModelMap model){
-        if (result.hasErrors()){
-            model.put("product", p);
-            return VIEWS_PRODUCTS_CREATE_OR_UPDATE_FORM;
-        }
-        else {
-            try{
-                this.productService.save(p);
-            }catch(Exception ex){
-                model.put("message", "No se ha podido guardar el producto");
-                return VIEWS_PRODUCTS_CREATE_OR_UPDATE_FORM;
-            }
-            return "welcome";
-        }
+
 
     }
 
