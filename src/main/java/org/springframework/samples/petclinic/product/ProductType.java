@@ -2,19 +2,20 @@ package org.springframework.samples.petclinic.product;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
+import org.springframework.samples.petclinic.model.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 @Entity
 @Getter
 @Setter
-public class ProductType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-
+public class ProductType extends BaseEntity {
     @Column(unique = true)
-    @Length(min=3,max=50)
+    @Size(max = 50, min = 3)
+    @NotNull
     String name;
 }

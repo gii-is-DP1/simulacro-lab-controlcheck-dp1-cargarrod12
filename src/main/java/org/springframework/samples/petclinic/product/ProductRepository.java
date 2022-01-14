@@ -9,14 +9,18 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface ProductRepository extends CrudRepository<Product, Integer>{
+
     List<Product> findAll();
 
-    @Query("Select productType FROM Product product")
+    @Query("SELECT productType FROM Product product")
     List<ProductType> findAllProductTypes();
     Optional<Product> findById(int id);
     Product findByName(String name);
     Product save(Product p);
 
-    @Query("Select productType FROM ProductTypes where productType.name=name")
-    ProductType findProductTypeByName(@Param("name")String name);
+    @Query("SELECT p.productType FROM Product p where p.productType.name like ?1")
+    ProductType findProductTypeByName(String name);
+
+    @Query("Select p FROM Product p where price < ?1")
+    List<Product> findByPriceLessThan(Double price);
 }
